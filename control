@@ -1,0 +1,9 @@
+Package: com.hack.tweak
+Name: GameModMenu
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Description: All-in-One Cheat Menu & Packet Interceptor
+Maintainer: Developer
+Author: Developer
+Section: Tweaks
