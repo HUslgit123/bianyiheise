@@ -1,0 +1,36 @@
+name: Build iOS Dylib
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git ~/theos
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+
+      - name: Install iOS SDKs
+        run: |
+          git clone --quiet -n --depth=1 https://github.com/theos/sdks.git ~/theos/sdks
+          cd ~/theos/sdks
+          git checkout $(git rev-list -n 1 --before="2023-01-01 00:00:00" master) iPhoneOS14.5.sdk
+          cd -
+
+      - name: Compile Dylib
+        run: |
+          make clean
+          make FINALPACKAGE=1
+
+      - name: Upload Dylib Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GameModMenu-Dylib
+          path: .theos/obj/GameModMenu.dylib
