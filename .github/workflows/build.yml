@@ -19,11 +19,11 @@ jobs:
 
       - name: Install iOS SDKs
         run: |
-          rm -rf ~/theos/sdks
-          git clone --quiet -n --depth=1 https://github.com/theos/sdks.git ~/theos/sdks
-          cd ~/theos/sdks
-          git checkout $(git rev-list -n 1 --before="2023-01-01 00:00:00" master) iPhoneOS14.5.sdk
-          cd -
+          mkdir -p ~/theos/sdks
+          curl -LO https://github.com/theos/sdks/archive/master.zip
+          unzip -q master.zip
+          mv sdks-master/*.sdk ~/theos/sdks/ 2>/dev/null || true
+          rm -rf master.zip sdks-master
 
       - name: Compile Dylib
         run: |
