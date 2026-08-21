@@ -6,7 +6,7 @@ include $(THEOS)/makefiles/common.mk
 TWEAK_NAME := GameModMenu
 
 GameModMenu_FILES := Tweak.x
-GameModMenu_CFLAGS := -fobjc-arc -Wno-unused-variable -Wno-unused-function
+GameModMenu_CFLAGS := -fobjc-arc -Wno-unused-variable -Wno-unused-function -Wno-deprecated-declarations -Wno-error
 GameModMenu_FRAMEWORKS := UIKit Foundation QuartzCore
 
 include $(THEOS_MAKE_PATH)/tweak.mk
